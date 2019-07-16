@@ -13,10 +13,11 @@ public class GymMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     private String name;
     private String cpf;
-    private String id;
+    private String identity;
     private String address;
 
     private PaymentPlan typeOfPaymentPlan = new PaymentPlan();
@@ -24,32 +25,16 @@ public class GymMember {
     protected GymMember() {
     }
 
-    public GymMember(String name, String cpf, String id, String address, PaymentPlan typeOfPaymentPlan) {
+    public GymMember(String name, String cpf, String identity, String address, PaymentPlan typeOfPaymentPlan) {
         this.name = name;
         this.cpf = cpf;
-        this.id = id;
+        this.identity = identity;
         this.address = address;
         this.typeOfPaymentPlan = typeOfPaymentPlan;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setTypeOfPaymentPlan(PaymentPlan typeOfPaymentPlan) {
-        this.typeOfPaymentPlan = typeOfPaymentPlan;
+    public Integer getId() {
+        return id;
     }
 
 
@@ -61,8 +46,8 @@ public class GymMember {
         return cpf;
     }
 
-    public String getId() {
-        return id;
+    public String getIdentity() {
+        return identity;
     }
 
     public String getAddress() {
@@ -74,29 +59,52 @@ public class GymMember {
     }
 
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setTypeOfPaymentPlan(PaymentPlan typeOfPaymentPlan) {
+        this.typeOfPaymentPlan = typeOfPaymentPlan;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GymMember)) return false;
         GymMember gymMember = (GymMember) o;
-        return name.equals(gymMember.name) &&
+        return Objects.equals(id, gymMember.id) &&
+                name.equals(gymMember.name) &&
                 cpf.equals(gymMember.cpf) &&
-                id.equals(gymMember.id) &&
+                Objects.equals(identity, gymMember.identity) &&
                 address.equals(gymMember.address) &&
                 typeOfPaymentPlan.equals(gymMember.typeOfPaymentPlan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, cpf, id, address, typeOfPaymentPlan);
+        return Objects.hash(id, name, cpf, identity, address, typeOfPaymentPlan);
     }
 
     @Override
     public String toString() {
         return "GymMember{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", id='" + id + '\'' +
+                ", identity='" + identity + '\'' +
                 ", address='" + address + '\'' +
                 ", typeOfPaymentPlan=" + typeOfPaymentPlan +
                 '}';
