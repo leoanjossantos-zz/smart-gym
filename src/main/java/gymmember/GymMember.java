@@ -14,9 +14,6 @@ public class GymMember {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private String firstName;
-    private String lastName;
-
     private String name;
     private String cpf;
     private String id;
@@ -27,21 +24,12 @@ public class GymMember {
     protected GymMember() {
     }
 
-    public GymMember(String lastName, String name, String cpf, String id, String address, PaymentPlan typeOfPaymentPlan) {
-        this.lastName = lastName;
+    public GymMember(String name, String cpf, String id, String address, PaymentPlan typeOfPaymentPlan) {
         this.name = name;
         this.cpf = cpf;
         this.id = id;
         this.address = address;
         this.typeOfPaymentPlan = typeOfPaymentPlan;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public void setName(String name) {
@@ -65,14 +53,6 @@ public class GymMember {
     }
 
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     public String getName() {
         return name;
     }
@@ -93,14 +73,13 @@ public class GymMember {
         return typeOfPaymentPlan;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GymMember)) return false;
         GymMember gymMember = (GymMember) o;
-        return firstName.equals(gymMember.firstName) &&
-                lastName.equals(gymMember.lastName) &&
-                name.equals(gymMember.name) &&
+        return name.equals(gymMember.name) &&
                 cpf.equals(gymMember.cpf) &&
                 id.equals(gymMember.id) &&
                 address.equals(gymMember.address) &&
@@ -109,20 +88,17 @@ public class GymMember {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, name, cpf, id, address, typeOfPaymentPlan);
+        return Objects.hash(name, cpf, id, address, typeOfPaymentPlan);
     }
 
     @Override
     public String toString() {
         return "GymMember{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", id='" + id + '\'' +
                 ", address='" + address + '\'' +
                 ", typeOfPaymentPlan=" + typeOfPaymentPlan +
                 '}';
     }
-
 }
