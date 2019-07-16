@@ -17,6 +17,4 @@ public class SmartGymApplication {
     public RestTemplate restTemplate() {
         return new RestTemplateBuilder().build();
     }
-
-
 }
