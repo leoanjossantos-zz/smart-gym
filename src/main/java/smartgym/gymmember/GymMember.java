@@ -1,42 +1,44 @@
-package gymmember;
+package smartgym.gymmember;
 
-import paymentplan.PaymentPlan;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import smartgym.paymentplan.PaymentPlan;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.Objects;
 
-@Entity
 public class GymMember {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
 
     private String name;
     private String cpf;
     private String identity;
     private String address;
 
-    private PaymentPlan typeOfPaymentPlan = new PaymentPlan();
+    private PaymentPlan paymentPlan;
 
-    protected GymMember() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Date creationDate = new Date();
+
+    public GymMember() {
     }
 
-    public GymMember(String name, String cpf, String identity, String address, PaymentPlan typeOfPaymentPlan) {
+    public GymMember(String name, String cpf, String identity, String address, PaymentPlan paymentPlan) {
         this.name = name;
         this.cpf = cpf;
         this.identity = identity;
         this.address = address;
-        this.typeOfPaymentPlan = typeOfPaymentPlan;
+        this.paymentPlan = paymentPlan;
+        this.creationDate = new Date();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -54,10 +56,9 @@ public class GymMember {
         return address;
     }
 
-    public PaymentPlan getTypeOfPaymentPlan() {
-        return typeOfPaymentPlan;
+    public PaymentPlan getPaymentPlan() {
+        return paymentPlan;
     }
-
 
     public void setName(String name) {
         this.name = name;
@@ -75,10 +76,13 @@ public class GymMember {
         this.address = address;
     }
 
-    public void setTypeOfPaymentPlan(PaymentPlan typeOfPaymentPlan) {
-        this.typeOfPaymentPlan = typeOfPaymentPlan;
+    public void setPaymentPlan(PaymentPlan paymentPlan) {
+        this.paymentPlan = paymentPlan;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -90,12 +94,12 @@ public class GymMember {
                 cpf.equals(gymMember.cpf) &&
                 Objects.equals(identity, gymMember.identity) &&
                 address.equals(gymMember.address) &&
-                typeOfPaymentPlan.equals(gymMember.typeOfPaymentPlan);
+                paymentPlan.equals(gymMember.paymentPlan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, cpf, identity, address, typeOfPaymentPlan);
+        return Objects.hash(id, name, cpf, identity, address, paymentPlan);
     }
 
     @Override
@@ -106,7 +110,7 @@ public class GymMember {
                 ", cpf='" + cpf + '\'' +
                 ", identity='" + identity + '\'' +
                 ", address='" + address + '\'' +
-                ", typeOfPaymentPlan=" + typeOfPaymentPlan +
+                ", paymentPlan=" + paymentPlan +
                 '}';
     }
 }
